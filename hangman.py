@@ -39,7 +39,7 @@ def play_hangman():
 
     secret_word = wortliste_lvl[randint(0, len(wortliste_lvl))]
     print(secret_word)
-    split_secret = l[]
+    #split_secret = l[]
 
 
 def leaderboard():
