@@ -21,15 +21,19 @@ def hangman_main():
 def play_hangman():
     print("\n\n\n1: Play Hangman\n\n\n")
     print("Wie lange soll dein Wort sein?(3-8)\n")
-    level = int(input(""))
+    try:
+        level = int(input(""))
+    except ValueError:
+        play_hangman()
 
     if level in range(3, 9):
-        print("erfolgreich")
+        pass
     else:
-        print("Geben sie eine gütlige Länge an")
+        print("Geben sie ein gültiges Level an")
 
     file = open("wordlist.txt", "r")
     wortliste_lvl = []
+
     for word in file:
         word = word.strip()
         if len(word) == level:
@@ -38,8 +42,21 @@ def play_hangman():
 
     secret_word = wortliste_lvl[randint(0, len(wortliste_lvl))]
     print(secret_word)
-    #split_secret = l[]
 
+    secret_word_split = []
+
+    for i in secret_word:
+        secret_word_split.append(i)
+
+    eingabeliste = []
+
+    for i in range(0, level):
+        eingabeliste.append(i)
+        
+    userputin = input("\n\n\nGeben sie einen Buchstaben ein:\n")
+
+def check_input():
+    pass
 
 def leaderboard():
     l = []
