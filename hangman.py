@@ -51,7 +51,7 @@ def play_hangman():
     eingabeliste = []
 
     for i in range(0, level):
-        eingabeliste.append("X")
+        eingabeliste.append("x")
 
     print(eingabeliste)
 
@@ -68,7 +68,7 @@ def user_input(eingabeliste, secret_word, secret_word_split):
         pass
     else:
         print("Buchstabe scho versucht")
-        user_input(eingabeliste, secret_word)
+        user_input(eingabeliste, secret_word, secret_word_split)
 
     if userinput in secret_word:
         correctletter(secret_word, userinput, eingabeliste, secret_word_split)
@@ -83,17 +83,17 @@ def user_input(eingabeliste, secret_word, secret_word_split):
 
 def correctletter(secret_word, userinput, eingabeliste, secret_word_split):
     for i in range(0, len(secret_word_split)):
-        print(i)
-        print("word split [i]  " + secret_word_split[i])
         if secret_word_split[i] == userinput:
-            eingabeliste[i] == userinput
-    print(eingabeliste)
+            eingabeliste[i] = str(userinput)
+
 
 
 def loser(secret_word):
     print("Du hast verloren " + secret_word)
     hangman_main()
 
+def win():
+    print("You win")
 
 def check_input():
     pass
