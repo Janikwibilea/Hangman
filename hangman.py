@@ -26,7 +26,7 @@ def play_hangman():
     if level in range(3, 9):
         print("erfolgreich")
     else:
-        print("Geben sie ein gültiges Level an")
+        print("Geben sie eine gütlige Länge an")
 
     file = open("wordlist.txt", "r")
     wortliste_lvl = []
