@@ -51,45 +51,56 @@ def play_hangman():
     eingabeliste = []
 
     for i in range(0, level):
-        eingabeliste.append(0)
+        eingabeliste.append("X")
 
     print(eingabeliste)
 
     global versuche
     versuche = level * 2
-    user_input(eingabeliste, secret_word, versuche)
+    user_input(eingabeliste, secret_word, secret_word_split)
 
 
-def user_input(eingabeliste, secret_word, versuche):
+def user_input(eingabeliste, secret_word, secret_word_split):
+    global versuche
     userinput = input("\n\n\nGeben sie einen Buchstaben ein:\n")
 
     if userinput not in eingabeliste:
         pass
     else:
         print("Buchstabe scho versucht")
-        user_input(eingabeliste, secret_word, versuche)
+        user_input(eingabeliste, secret_word)
 
     if userinput in secret_word:
-        print("diese buchstabe drin")
+        correctletter(secret_word, userinput, eingabeliste, secret_word_split)
     else:
         print("nicht drin")
-        versuche = versuche - 1
+        versuche -= 1
     if versuche > 0:
-        user_input(eingabeliste, secret_word, versuche)
+        user_input(eingabeliste, secret_word, secret_word_split)
     else:
         loser(secret_word)
 
 
+def correctletter(secret_word, userinput, eingabeliste, secret_word_split):
+    for i in range(0, len(secret_word_split)):
+        print(i)
+        print("word split [i]  " + secret_word_split[i])
+        if secret_word_split[i] == userinput:
+            eingabeliste[i] == userinput
+    print(eingabeliste)
+
+
 def loser(secret_word):
-    print("Du hast verloren" + secret_word)
+    print("Du hast verloren " + secret_word)
     hangman_main()
 
 
 def check_input():
     pass
 
+
 def leaderboard():
-    #l = []
-    pass
+    l = []
+
 
 hangman_main()
