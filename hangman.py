@@ -30,7 +30,6 @@ def play_hangman():
 
     file = open("wordlist.txt", "r")
     wortliste_lvl = []
-    level
     for word in file:
         word = word.strip()
         if len(word) == level:
