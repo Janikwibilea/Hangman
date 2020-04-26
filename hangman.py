@@ -3,10 +3,13 @@ import sys
 import time
 
 
+
 def hangman_main():
     print("Welcome to Hangman:\n 1 to Play Hangman\n 2 to show Leaderboard\n 3 to exit Programm")
     mode = int(input("\n"))
     if mode == 1:
+        global counter
+        counter = 0
         play_hangman()
     elif mode == 2:
         leaderboard()
@@ -82,9 +85,16 @@ def user_input(eingabeliste, secret_word, secret_word_split):
 
 
 def correctletter(secret_word, userinput, eingabeliste, secret_word_split):
+    global counter
     for i in range(0, len(secret_word_split)):
         if secret_word_split[i] == userinput:
             eingabeliste[i] = str(userinput)
+            print(eingabeliste)
+            counter += 1
+            print(counter)
+    if counter == len(secret_word_split):
+        win()
+
 
 
 
@@ -94,6 +104,7 @@ def loser(secret_word):
 
 def win():
     print("You win")
+    hangman_main()
 
 def check_input():
     pass
