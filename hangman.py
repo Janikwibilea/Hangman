@@ -40,7 +40,7 @@ def play_hangman():
             wortliste_lvl.append(word)
     file.close()
 
-    secret_word = wortliste_lvl[randint(0, len(wortliste_lvl))]
+    secret_word = wortliste_lvl[randint(0, len(wortliste_lvl))].lower()
     print(secret_word)
 
     secret_word_split = []
@@ -51,9 +51,41 @@ def play_hangman():
     eingabeliste = []
 
     for i in range(0, level):
-        eingabeliste.append(i)
-        
-    userputin = input("\n\n\nGeben sie einen Buchstaben ein:\n")
+        eingabeliste.append(0)
+
+    print(eingabeliste)
+
+    global versuche
+    versuche = level * 2
+    user_input(eingabeliste, secret_word)
+
+
+def user_input(eingabeliste, secret_word):
+
+
+    userinput = input("\n\n\nGeben sie einen Buchstaben ein:\n")
+
+    if userinput not in eingabeliste:
+        pass
+    else:
+        print("Buchstabe scho versucht")
+        user_input(eingabeliste, secret_word)
+
+    if userinput in secret_word:
+        print("diese buchstabe drin")
+    else:
+        print("nicht drin")
+        versuche -= 1
+    if versuche > 0:
+        user_input()
+    else:
+        loser(secret_word)
+
+
+def loser(secret_word):
+    print("Du hast verloren" + secret_word)
+    hangman_main()
+
 
 def check_input():
     pass
