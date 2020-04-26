@@ -90,7 +90,7 @@ def check_input():
     pass
 
 def leaderboard():
-    l = []
-
+    #l = []
+    pass
 
 hangman_main()
