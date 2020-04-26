@@ -57,18 +57,17 @@ def play_hangman():
 
     global versuche
     versuche = level * 2
-    user_input(eingabeliste, secret_word)
+    user_input(eingabeliste, secret_word, versuche)
 
 
-def user_input(eingabeliste, secret_word):
-    global versuche
+def user_input(eingabeliste, secret_word, versuche):
     userinput = input("\n\n\nGeben sie einen Buchstaben ein:\n")
 
     if userinput not in eingabeliste:
         pass
     else:
         print("Buchstabe scho versucht")
-        user_input(eingabeliste, secret_word)
+        user_input(eingabeliste, secret_word, versuche)
 
     if userinput in secret_word:
         print("diese buchstabe drin")
@@ -76,7 +75,7 @@ def user_input(eingabeliste, secret_word):
         print("nicht drin")
         versuche = versuche - 1
     if versuche > 0:
-        user_input(eingabeliste, secret_word)
+        user_input(eingabeliste, secret_word, versuche)
     else:
         loser(secret_word)
 
