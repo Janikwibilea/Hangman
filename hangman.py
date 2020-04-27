@@ -1,6 +1,7 @@
 from random import random, randint
 import sys
 import time
+import csv
 
 
 
@@ -25,6 +26,7 @@ def play_hangman():
     print("\n\n\n1: Play Hangman\n\n\n")
     print("Wie lange soll dein Wort sein?(3-8)\n")
     try:
+        global level
         level = int(input(""))
     except ValueError:
         play_hangman()
@@ -70,13 +72,14 @@ def user_input(eingabeliste, secret_word, secret_word_split):
     if userinput not in eingabeliste:
         pass
     else:
-        print("Buchstabe scho versucht")
+        print("Der Buchstabe wurde schon versucht")
         user_input(eingabeliste, secret_word, secret_word_split)
 
     if userinput in secret_word:
         correctletter(secret_word, userinput, eingabeliste, secret_word_split)
     else:
         print("nicht drin")
+        print(eingabeliste)
         versuche -= 1
     if versuche > 0:
         user_input(eingabeliste, secret_word, secret_word_split)
@@ -89,29 +92,40 @@ def correctletter(secret_word, userinput, eingabeliste, secret_word_split):
     for i in range(0, len(secret_word_split)):
         if secret_word_split[i] == userinput:
             eingabeliste[i] = str(userinput)
+            print("Korrekt")
             print(eingabeliste)
             counter += 1
-            print(counter)
     if counter == len(secret_word_split):
         win()
 
 
-
-
 def loser(secret_word):
     print("Du hast verloren " + secret_word)
+    time.sleep(3)
     hangman_main()
 
 def win():
-    print("You win")
+    print("\n\n\nYou win\n\n\n")
+    time.sleep(3)
+    addToLeaderboard()
     hangman_main()
 
-def check_input():
-    pass
+
+def addToLeaderboard():
+    global level
+    global versuche
+    with open("leaderboard.csv", "a", newline="") as file:
+        write = csv.writer(file, delimiter=";")
+        write.writerow([str(level), str(versuche)])
 
 
 def leaderboard():
-    l = []
+    file = open("leaderboard.csv", "r")
+    for i in file:
+        print(i)
+    file.close()
+    input("Zurück zum Menü\n")
+    hangman_main()
 
 
 hangman_main()
