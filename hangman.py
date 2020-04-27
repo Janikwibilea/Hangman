@@ -1,12 +1,14 @@
-from random import random, randint
 import sys
 import time
 import csv
-
-
+from datetime import datetime
+from random import randint
+from colorama import Fore, init
+init(autoreset=True)
+from prettytable import PrettyTable, from_csv
 
 def hangman_main():
-    print("Welcome to Hangman:\n 1 to Play Hangman\n 2 to show Leaderboard\n 3 to exit Programm")
+    print(Fore.YELLOW + "Welcome to Hangman:\n 1 to Play Hangman\n 2 to show Leaderboard\n 3 to exit Programm")
     mode = int(input("\n"))
     if mode == 1:
         global counter
@@ -17,24 +19,26 @@ def hangman_main():
     elif mode == 3:
         sys.exit(0)
     else:
-        print("Eingabe Fehler\n\n\n")
+        print(Fore.RED + "Eingabe Fehler\n\n\n")
         time.sleep(2)
         hangman_main()
 
 
 def play_hangman():
-    print("\n\n\n1: Play Hangman\n\n\n")
-    print("Wie lange soll dein Wort sein?(3-8)\n")
+    print("\n\n1: Play Hangman\n\n")
+    print("How long should your word be?(3-8)\n")
+
     try:
         global level
         level = int(input(""))
     except ValueError:
+        print(Fore.RED + "Enter a valid value")
         play_hangman()
 
     if level in range(3, 9):
         pass
     else:
-        print("Geben sie ein gültiges Level an")
+        print(Fore.RED + "Choose a valid level")
 
     file = open("wordlist.txt", "r")
     wortliste_lvl = []
@@ -60,6 +64,8 @@ def play_hangman():
 
     print(eingabeliste)
 
+    global fehler
+    fehler = 0
     global versuche
     versuche = level * 2
     user_input(eingabeliste, secret_word, secret_word_split)
@@ -67,20 +73,22 @@ def play_hangman():
 
 def user_input(eingabeliste, secret_word, secret_word_split):
     global versuche
-    userinput = input("\n\n\nGeben sie einen Buchstaben ein:\n")
+    global fehler
+    userinput = input("\n\n\nEnter a letter:\n")
 
     if userinput not in eingabeliste:
         pass
     else:
-        print("Der Buchstabe wurde schon versucht")
+        print(Fore.RED + "The letter has already been tried")
         user_input(eingabeliste, secret_word, secret_word_split)
 
     if userinput in secret_word:
         correctletter(secret_word, userinput, eingabeliste, secret_word_split)
     else:
-        print("nicht drin")
+        print(Fore.RED + "Letter not in there\n")
         print(eingabeliste)
         versuche -= 1
+        fehler += 1
     if versuche > 0:
         user_input(eingabeliste, secret_word, secret_word_split)
     else:
@@ -92,7 +100,7 @@ def correctletter(secret_word, userinput, eingabeliste, secret_word_split):
     for i in range(0, len(secret_word_split)):
         if secret_word_split[i] == userinput:
             eingabeliste[i] = str(userinput)
-            print("Korrekt")
+            print(Fore.GREEN + "Correct Letter")
             print(eingabeliste)
             counter += 1
     if counter == len(secret_word_split):
@@ -100,31 +108,33 @@ def correctletter(secret_word, userinput, eingabeliste, secret_word_split):
 
 
 def loser(secret_word):
-    print("Du hast verloren " + secret_word)
+    print(Fore.RED + "You lost, the solution is: " + secret_word + "\n\n\n")
     time.sleep(3)
     hangman_main()
+
 
 def win():
-    print("\n\n\nYou win\n\n\n")
+    global fehler
+    print(Fore.GREEN + "\n\n\nYou have won\n" + "Your number of mistakes: " + str(fehler) + "\n\n")
+    timenow = datetime.now()
     time.sleep(3)
-    addToLeaderboard()
+    addtoleaderboard(timenow)
     hangman_main()
 
 
-def addToLeaderboard():
+def addtoleaderboard(timenow):
     global level
-    global versuche
+    global fehler
     with open("leaderboard.csv", "a", newline="") as file:
         write = csv.writer(file, delimiter=";")
-        write.writerow([str(level), str(versuche)])
+        write.writerow([str(level), str(fehler), str(timenow.strftime("%Y-%m-%d %H:%M"))])
 
 
 def leaderboard():
-    file = open("leaderboard.csv", "r")
-    for i in file:
-        print(i)
-    file.close()
-    input("Zurück zum Menü\n")
+    with open("leaderboard.csv", "r") as file:
+        x = from_csv(file)
+        print(x)
+    input("Back to menue\n")
     hangman_main()
 
 
