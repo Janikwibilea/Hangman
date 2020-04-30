@@ -18,11 +18,8 @@ class manage_session:
         self.close_file()
 
     def start(self):
-        self.open_file("w")
-        self.file.write('"Waiting for Player...", "Username of Admin: {}", 0'.format(self.user_name))
-        self.close_file()
-        """ self.write_file('"Waiting for Player...", "Username of Admin: {}", 0'.format(self.user_name))
-        print(Fore.BLUE + "Game Created, waiting for other Player") """
+        self.write_file('"Waiting for Player...", "Username of Admin: {}", 0'.format(self.user_name))
+        print(Fore.BLUE + "Game Created, waiting for other Player")
 
     def state(self):
         self.open_file("r")
@@ -67,7 +64,7 @@ def hangman_main():
     print(Fore.BLUE + "Welcome to Hangman")
     user_name = input(Fore.BLUE + "Please enter a Username: ")
     global session
-    session = manage_session("connection_files/session.txt", user_name)
+    session = manage_session("session.txt", user_name)
     session.start()
     session.waiting_for_user()
     input_secret_word()
