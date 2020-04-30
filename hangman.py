@@ -8,15 +8,28 @@ def hangman_main():
     if mode == 1:
         global counter
         counter = 0
-        play_hangman()
+        hangman_playmode()
     elif mode == 2:
         leaderboard()
     elif mode == 3:
         sys.exit(0)
     else:
-        print(Fore.RED + "Eingabe Fehler\n\n\n")
+        print(Fore.RED + "Enter a valid username\n\n\n")
         time.sleep(2)
         hangman_main()
+
+
+def hangman_playmode():
+    print(Fore.BLUE + "Which Hangman mode do you want to play?\n 1 Single Player\n 2 Multiplayer")
+    mode = int(input("\n"))
+    if mode == 1:
+        play_hangman()
+    elif mode == 2:
+        pass            #add multiplayer function
+    else:
+        print(Fore.RED + "Enter a valid value\n\n\n")
+        time.sleep(2)
+        hangman_playmode()
 
 
 def play_hangman():
