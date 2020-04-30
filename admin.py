@@ -36,13 +36,37 @@ def waiting_for_user():
             print(Fore.RED + "Something went wrong, exiting Hangman")
             sys.exit(0)
 
+def input_secret_word():
+    # Input secret word.
+    # Print to session.txt
+    pass
+
+def user_stats():
+    # Importing stats from stats.txt
+    # TODO: Creating stats.txt
+    # Print stats until game finish
+    pass
+
+def get_results():
+    # Get the results from the user (import from session.txt)
+    pass
+
+def end_game():
+    #Print options
+    # Play again?
+    return False
+
 def hangman_main():
     print(Fore.BLUE + "Welcome to Hangman")
     user_name = input(Fore.BLUE + "Please enter a Username: ")
     global session
     session = manage_session("connection_files/session.txt", user_name)
     session.start()
-    
+    input_secret_word()
+    user_stats()
+    get_results()
+    if end_game():
+        hangman_main()
 
 
 
