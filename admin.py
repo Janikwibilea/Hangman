@@ -5,6 +5,7 @@ def input_secret_word():
     global secret_word
     global word_level
     secret_word = input("Input a secret Word: ")
+    secret_word.lower()
     word_level = len(secret_word)
     session_admin.write_file("{}, {}".format(secret_word, word_level))
     print("The secret word is: {}. It's a word from level: {}.".format(secret_word, word_level))

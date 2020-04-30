@@ -69,7 +69,6 @@ def play_hangman():
     file.close()
 
     secret_word = wortliste_lvl[randint(0, len(wortliste_lvl))].lower()
-    print(secret_word)
 
     secret_word_split = []
 
