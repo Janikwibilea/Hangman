@@ -36,7 +36,7 @@ def user_mode():
     if mode == 1:
         hangman_admin_main()
     if mode == 2:
-        hangman_admin_main()
+        hangman_user_main()
     else:
         print(Fore.RED + "Enter a valid value\n\n\n")
         time.sleep(2)
