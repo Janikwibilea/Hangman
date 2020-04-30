@@ -7,4 +7,4 @@ from colorama import Fore, init
 from prettytable import PrettyTable, from_csv
 
 # Classes
-import classes as cl
+import classes as classes

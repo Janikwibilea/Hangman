@@ -30,12 +30,15 @@ class manage_session:
     def waiting_for_user(self):
         user_is_ready = False
         while user_is_ready == False:
-            if session.state() == 1:
+            if self.state() == 1:
                 print(Fore.GREEN + "User is ready")
                 user_is_ready = True
-            elif session.state() == 0:
+            elif self.state() == 0:
                 print(Fore.YELLOW + "User is not ready")
                 time.sleep(1)
             else:
                 print(Fore.RED + "Something went wrong, exiting Hangman")
                 sys.exit(0)
+
+    def user_is_ready(self):
+        pass
