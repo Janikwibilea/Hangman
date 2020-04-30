@@ -41,10 +41,10 @@ class manage_session:
                 sys.exit(0)
 
 def input_secret_word():
-    secret_word = input("Input secred Word: ")
+    secret_word = input("Input a secret Word: ")
     word_level = len(secret_word)
     session.write_file("{}, {}".format(secret_word, word_level))
-    print("The secred word is: {}. It's a word from level: {}.".format(secret_word, word_level))
+    print("The secret word is: {}. It's a word from level: {}.".format(secret_word, word_level))
 
 def user_stats():
     # Importing stats from stats.txt 
@@ -62,7 +62,7 @@ def end_game():
     return False
 
 def hangman_admin_main():
-    print(Fore.BLUE + "Welcome to Hangman")
+    print(Fore.BLUE + "Welcome to Hangman (Admin Panel)")
     user_name = input(Fore.BLUE + "Please enter a Username: ")
     global session
     session = manage_session("session.txt", user_name)
