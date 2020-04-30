@@ -1,1 +1,1 @@
-"Waiting for Player...", "Username of Admin: & C:/Users/GianR/AppData/Local/Programs/Python/Python38-32/python.exe "f:/Microsoft VS Code/git/hangman/Hangman/admin.py"", 0
+TestWord, 8

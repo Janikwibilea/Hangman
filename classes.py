@@ -17,15 +17,26 @@ class manage_session:
         self.file.write(text)
         self.close_file()
 
-    def start(self):
+    def start_admin(self):
         self.write_file('"Waiting for Player...", "Username of Admin: {}", 0'.format(self.user_name))
         print(Fore.BLUE + "Game Created, waiting for other Player")
+    
+    def start_user(self):
+        self.open_file("r")
+        self.admin_name = self.file.readline().split(',')[1]
+        self.close_file()
+        self.write_file('"User joined", "Name of User: {}", 1'.format(self.user_name))
+        print(Fore.BLUE + "Game joined, waiting for Admin")
 
     def state(self):
-        self.open_file("r")
-        self.session_state = int(self.file.readline().split(',')[2])
-        self.close_file()
-        return self.session_state
+        try:
+            self.open_file("r")
+            self.session_state = int(self.file.readline().split(',')[2])
+            self.close_file()
+            return self.session_state
+        except IndexError:
+            time.sleep(1)
+            self.state()
 
     def waiting_for_user(self):
         user_is_ready = False
@@ -39,6 +50,8 @@ class manage_session:
             else:
                 print(Fore.RED + "Something went wrong, exiting Hangman")
                 sys.exit(0)
+        self.open_file("r")
+        self.name_of_user = self.file.readline().split(',')[1]
+        self.close_file()
 
-    def user_is_ready(self):
-        pass
+

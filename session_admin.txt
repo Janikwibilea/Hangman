@@ -1,1 +1,0 @@
-"Waiting for Player...", "Username of Admin: Test", 0
