@@ -61,7 +61,7 @@ def end_game():
     # Play again?
     return False
 
-def hangman_main():
+def hangman_admin_main():
     print(Fore.BLUE + "Welcome to Hangman")
     user_name = input(Fore.BLUE + "Please enter a Username: ")
     global session
@@ -72,8 +72,8 @@ def hangman_main():
     user_stats()
     get_results()
     if end_game():
-        hangman_main()
+        hangman_admin_main()
 
 
 
-hangman_main()
+hangman_admin_main()
