@@ -14,13 +14,29 @@ class manage_session:
     
     def start(self):
         self.open_file("w")
-        self.file.write('["Waiting for Player", "{}"]'.format(self.user_name))
-    
+        self.file.write('"Waiting for Player...", "Username of Admin: {}", 0'.format(self.user_name))
+        self.close_file()
+
+    def state(self):
+        self.open_file("r")
+        self.session_state = int(self.file.readline().split(',')[2])
+        self.close_file()
+        return self.session_state
 
 def hangman_main():
-    print(Fore.BLUE + " Welcome to Hangman")
-    user_name = input(Fore.YELLOW + "Please enter a Username: ")
+    print(Fore.BLUE + "Welcome to Hangman")
+    user_name = input(Fore.BLUE + "Please enter a Username: ")
     session = manage_session("connection_files/session.txt", user_name)
     session.start()
+    user_is_ready = False
+    while user_is_ready == False:
+        if session.state() == 1:
+            print(Fore.GREEN + "User is ready")
+            user_is_ready = True
+        else:
+            print(Fore.YELLOW + "User is not ready")
+            time.sleep(1)
+
+
 
 hangman_main()
