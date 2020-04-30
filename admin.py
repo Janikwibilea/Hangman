@@ -44,6 +44,7 @@ def input_secret_word():
     secret_word = input("Input secred Word: ")
     word_level = len(secret_word)
     session.write_file("{}, {}".format(secret_word, word_level))
+    print("The secred word is: {}. It's a word from level: {}.".format(secret_word, word_level))
 
 def user_stats():
     # Importing stats from stats.txt 
