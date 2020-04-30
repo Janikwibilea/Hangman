@@ -23,19 +23,26 @@ class manage_session:
         self.close_file()
         return self.session_state
 
-def hangman_main():
-    print(Fore.BLUE + "Welcome to Hangman")
-    user_name = input(Fore.BLUE + "Please enter a Username: ")
-    session = manage_session("connection_files/session.txt", user_name)
-    session.start()
+def waiting_for_user():
     user_is_ready = False
     while user_is_ready == False:
         if session.state() == 1:
             print(Fore.GREEN + "User is ready")
             user_is_ready = True
-        else:
+        elif session.state() == 0:
             print(Fore.YELLOW + "User is not ready")
             time.sleep(1)
+        else:
+            print(Fore.RED + "Something went wrong, exiting Hangman")
+            sys.exit(0)
+
+def hangman_main():
+    print(Fore.BLUE + "Welcome to Hangman")
+    user_name = input(Fore.BLUE + "Please enter a Username: ")
+    global session
+    session = manage_session("connection_files/session.txt", user_name)
+    session.start()
+    
 
 
 
