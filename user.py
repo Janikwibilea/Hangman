@@ -30,6 +30,7 @@ def wait_for_secret_word():
     for i in secret_word:
         secret_word_split.append(i)
 
+    global input_list
     input_list = []
 
     for i in range(0, word_level):
@@ -46,7 +47,7 @@ def user_input(input_list, secret_word, secret_word_split):
     global user_tries
     global letters_tried
     letters_tried = []
-    session_user.write_file("{}, {}, {}, {}".format(input_list, user_tries, letters_tried))
+    session_user.write_file("{}, {}, {}, {}".format(input_list, user_tries, letters_tried, False))
     userinput = input("\n\n\nEnter a letter:\n")
     userinput.lower()
     if userinput not in letters_tried:
@@ -81,12 +82,13 @@ def correctletter(secret_word, userinput, input_list, secret_word_split):
 
 
 def loser(secret_word):
+    session_user.write_file("{}, {}, {}, {}".format(input_list, user_tries, letters_tried, False))
     print(Fore.RED + "You lost, the solution is: " + secret_word + "\n\n\n")
     time.sleep(3)
 
 
 def win():
-    global user_tries
+    session_user.write_file("{}, {}, {}, {}".format(input_list, user_tries, letters_tried, True))
     print(Fore.GREEN + "\n\n\nYou have won\n" + "Your number of mistakes: " + str(user_fails) + "\n\n")
     #timenow = datetime.now()
     time.sleep(3)
