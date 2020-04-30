@@ -1,11 +1,6 @@
-import sys
-import time
-import csv
-from datetime import datetime
-from random import randint
-from colorama import Fore, init
+from modules import *
 init(autoreset=True)
-from prettytable import PrettyTable, from_csv
+
 
 def hangman_main():
     print(Fore.YELLOW + "Welcome to Hangman:\n 1 to Play Hangman\n 2 to show Leaderboard\n 3 to exit Programm")
