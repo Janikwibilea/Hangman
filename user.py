@@ -18,13 +18,19 @@ def wait_for_admin():
         wait_for_admin()
 
 def wait_for_secret_word():
-    try:
-        session_user.file.readline().split(',')[2]
+    session_user.open_file("r")
+    import_session = session_user.file.readline().split(',')
+    while len(import_session) >= 3:
+        session_user.close_file()
+        session_user.open_file("r")
+        import_session = session_user.file.readline().split(',')
         time.sleep(1)
-    except IndexError:
-        secret_word = session_user.file.readline().split(',')[0]
-        word_level = session_user.file.readline().split(',')[1]
-
+    session_user.close_file()
+    global secret_word
+    global word_level
+    secret_word = import_session[0]
+    word_level = import_session[1]
+    global secret_word_split
     secret_word_split = []
 
     for i in secret_word:
@@ -33,13 +39,13 @@ def wait_for_secret_word():
     global input_list
     input_list = []
 
-    for i in range(0, word_level):
-        input_list.append("x")
+    for i in range(0, int(word_level)):
+        input_list.append("_")
 
     global user_fails
     user_fails = 0
     global user_tries
-    user_tries = word_level * 2
+    user_tries = int(word_level) * 2
     user_input(input_list, secret_word, secret_word_split)
 
 def user_input(input_list, secret_word, secret_word_split):
@@ -63,7 +69,7 @@ def user_input(input_list, secret_word, secret_word_split):
         print(input_list)
         user_tries -= 1
         user_fails += 1
-    if user_tries > 0:
+    if int(user_tries) > 0:
         user_input(input_list, secret_word, secret_word_split)
     else:
         loser(secret_word)
@@ -79,7 +85,6 @@ def correctletter(secret_word, userinput, input_list, secret_word_split):
             counter += 1
     if counter == len(secret_word_split):
         win()
-
 
 def loser(secret_word):
     session_user.write_file("{}, {}, {}, {}".format(input_list, user_tries, letters_tried, False))
