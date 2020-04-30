@@ -24,11 +24,23 @@ def hangman_playmode():
     if mode == 1:
         play_hangman()
     elif mode == 2:
-        pass         #add multiplayer function
+        user_mode()
     else:
         print(Fore.RED + "Enter a valid value\n\n\n")
         time.sleep(2)
         hangman_playmode()
+
+def user_mode():
+    print(Fore.BLUE + "Which user role you want to be?\n 1 Admin \n 2 User\n")
+    mode = int(input("\n"))
+    if mode == 1:
+        hangman_admin_main()
+    if mode == 2:
+        hangman_admin_main()
+    else:
+        print(Fore.RED + "Enter a valid value\n\n\n")
+        time.sleep(2)
+        user_mode()
 
 
 def play_hangman():
