@@ -1,7 +1,6 @@
 from modules import *
 init(autoreset=True)
 
-
 def hangman_main():
     print(Fore.YELLOW + "Welcome to Hangman:\n 1 to Play Hangman\n 2 to show Leaderboard\n 3 to exit Programm")
     mode = int(input("\n"))
@@ -25,7 +24,7 @@ def hangman_playmode():
     if mode == 1:
         play_hangman()
     elif mode == 2:
-        pass            #add multiplayer function
+        pass         #add multiplayer function
     else:
         print(Fore.RED + "Enter a valid value\n\n\n")
         time.sleep(2)
