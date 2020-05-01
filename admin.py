@@ -1,12 +1,13 @@
 from modules import time, sys, init, Fore, classes
 init(autoreset=True)
 
+
 def input_secret_word():
-    global secret_word
-    global word_level
     secret_word = input("Input a secret Word: ")
+    secret_word.lower()
+    global word_level
     word_level = len(secret_word)
-    session_admin.write_file("{}, {}".format(secret_word, word_level))
+    session_admin.write_file("{},{}".format(secret_word, word_level))
     print("The secret word is: {}. It's a word from level: {}.".format(secret_word, word_level))
 
 def user_stats():
@@ -51,7 +52,5 @@ def hangman_admin_main():
     user_stats()
     if end_game():
         hangman_admin_main()
-
-
 
 hangman_admin_main()
