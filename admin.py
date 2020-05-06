@@ -14,26 +14,30 @@ def user_stats():
     # Importing stats from session_admin.txt
     # Import: "Eingabeliste", "Remaining Tries", "All letters inputed", "Is word Correct (Bool)"
     did_game_end = False
-    old_tries = word_level
     session_admin.open_file("r")
     while not did_game_end:
         try:
-            input_list = str(session_admin.file.readline().split(',')[0])
-            remaining_tries = int(session_admin.file.readline().split(',')[1])
-            all_letters_tried = str(session_admin.file.readline().split(',')[2])
-            did_game_end = bool(session_admin.file.readline().split(',')[3])
-            if old_tries != remaining_tries:
-                old_tries = remaining_tries
-                print("\n\n\n\n\n\nWord: {} \nRemaining tries: {}\nAll letters tried: {}\n".format(input_list, remaining_tries, all_letters_tried))
+            session_admin.open_file("r")
+            import_session = str(session_admin.file.readline().split(';'))
+            session_admin.close_file()
+            print(import_session)
+            input_list = import_session[0]
+            remaining_tries = import_session[1]
+            all_letters_tried = import_session[2]
+            check_game_state = import_session[3]
+            if check_game_state == "True":
+                did_game_end = True
+            print("\n\n\n\n\n\nWord: {} \nRemaining tries: {}\nAll letters tried: {}\nDid Game End?{}".format(str(input_list), str(remaining_tries), str(all_letters_tried), str(did_game_end)))
             time.sleep(1)
         except IndexError:
+            print("IndexError")
             time.sleep(1)
-    get_results(input_list, remaining_tries)
     session_admin.close_file()
+    get_results(input_list, remaining_tries)
 
 def get_results(input_list, remaining_tries):
     # Get the results from the user (import from session_admin.txt)
-    print("\n\n\nUser {} won the Game".format("..")) # TODO User name
+    print("\n\n\nUser {} won the Game".format(".."))  # TODO User name
     print("Word: {} \nRemaining tries: {}".format(input_list, remaining_tries))
 
 def end_game():

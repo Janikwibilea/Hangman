@@ -30,7 +30,7 @@ def wait_for_secret_word():
     session_user.close_file()
     global secret_word
     global word_level
-    secret_word = import_session[0]
+    secret_word = import_session[0].lower()
     word_level = import_session[1]
     global secret_word_split
     secret_word_split = []
@@ -48,14 +48,15 @@ def wait_for_secret_word():
     user_fails = 0
     global user_tries
     user_tries = int(word_level) * 2
+    global letters_tried
+    letters_tried = []
     user_input(input_list, secret_word, secret_word_split)
 
 def user_input(input_list, secret_word, secret_word_split):
     global user_fails
     global user_tries
     global letters_tried
-    letters_tried = []
-    session_user.write_file("{}, {}, {}, {}".format(input_list, user_tries, letters_tried, False))
+    session_user.write_file("{}; {}; {}; {}".format(input_list, user_tries, letters_tried, False))
     userinput = input("\n\n\nEnter a letter:\n")
     userinput.lower()
     if userinput not in letters_tried:
@@ -101,5 +102,6 @@ def win():
     time.sleep(3)
     #addtoleaderboard(timenow)
     #hangman_main()
+    sys.exit(0)
 
 hangman_user_main()
