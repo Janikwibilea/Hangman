@@ -16,11 +16,11 @@ def user_stats():
     did_game_end = False
     session_admin.open_file("r")
     while not did_game_end:
+        session_admin.open_file("r")
+        import_session = session_admin.file.readline().split(';')
+        session_admin.close_file()
+        print(import_session)
         try:
-            session_admin.open_file("r")
-            import_session = str(session_admin.file.readline().split(';'))
-            session_admin.close_file()
-            print(import_session)
             input_list = import_session[0]
             remaining_tries = import_session[1]
             all_letters_tried = import_session[2]
@@ -30,7 +30,7 @@ def user_stats():
             print("\n\n\n\n\n\nWord: {} \nRemaining tries: {}\nAll letters tried: {}\nDid Game End?{}".format(str(input_list), str(remaining_tries), str(all_letters_tried), str(did_game_end)))
             time.sleep(1)
         except IndexError:
-            print("IndexError")
+            print("IndexError")  # TODO Zeile entfernen wenn alles funktioniert
             time.sleep(1)
     session_admin.close_file()
     get_results(input_list, remaining_tries)

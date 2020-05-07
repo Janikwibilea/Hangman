@@ -30,12 +30,12 @@ def wait_for_secret_word():
     session_user.close_file()
     global secret_word
     global word_level
-    secret_word = import_session[0].lower()
+    secret_word = import_session[0]
     word_level = import_session[1]
     global secret_word_split
     secret_word_split = []
 
-    for i in secret_word:
+    for i in secret_word.lower():
         secret_word_split.append(i)
 
     global input_list
